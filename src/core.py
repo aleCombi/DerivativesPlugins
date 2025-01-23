@@ -17,12 +17,3 @@ class DerivativesPlatform:
     def _register_plugins(self):
         self.pm.register(PricingPlugin())
         self.market_data_pm.register(MarketDataPlugin())
-
-    def execute_action(self, action_name, *args, **kwargs):
-        if action_name == "price_derivative":
-            hooked = self.pm.hook.__getattr__(action_name)(*args, **kwargs)
-        elif action_name == "retrieve_market_data":
-            hooked = self.market_data_pm.hook.__getattr__(action_name)(*args, **kwargs)
-        else:
-            raise ValueError(f"Unknown action: {action_name}")
-        return hooked
